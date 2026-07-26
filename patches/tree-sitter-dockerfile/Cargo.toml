@@ -1,0 +1,20 @@
+[package]
+name = "tree-sitter-dockerfile"
+version = "0.2.0"
+edition = "2021"
+license = "MIT"
+# Patched to use tree-sitter-language (tree-sitter 0.25 compatible API).
+# parser.c + scanner.c are pre-compiled to lib/libtree_sitter_dockerfile.a for wasm32-wasip2.
+# Minimal build script emits link directives without using the cc crate.
+build = "build.rs"
+links = "tree_sitter_dockerfile"
+
+[lib]
+name = "tree_sitter_dockerfile"
+path = "src/lib.rs"
+
+[dependencies]
+tree-sitter-language = "0.1"
+
+[build-dependencies]
+cc = "1"
